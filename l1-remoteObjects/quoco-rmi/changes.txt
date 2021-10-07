@@ -1,0 +1,24 @@
+changes: 
+	task 3) removed the service. import as the file structure is different and service no longer exits.
+	junit version is 4.13.1. I also had to include core as dependecy for the test to run... to all the services.
+	
+	
+	task 4) host has to be set for "arg[0]" 
+	I changed this piece of code 
+	Registry registry = null;
+		if (args.length == 0) {
+		registry = LocateRegistry.createRegistry(1099);
+		} else {
+		registry = LocateRegistry.getRegistry(host, 1099);
+		}
+	so that only the broker is to create registry and all other services and client would getReistry.
+	
+	task5)
+	I changed the file structure and removed package names from within module names. putting them all into each modules ``default package`` which allowed to free up the clutter of imports between files. They are only dependant on core in their pom files and so compiles with.
+	
+	in order to build for containers I had to add in the maven-assembly-plugin wioth <descriptorRef>jar-with-dependencies</descriptorRef> 
+	
+	docker compose was modified following the calculator example and to follow the system quoco-rmi logic. 
+	Broker Dockerfile had to remover $SERVER_HOST since it creates registry and specifies host, i.e its run with no args. 
+	
+	thanks!
