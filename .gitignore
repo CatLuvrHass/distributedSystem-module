@@ -1,7 +1,0 @@
-# ignored files of examples to help with labs
-sockets/
-/l1-remoteObjects/ignore/
-/l2-Jax-Ws/ignore/
-/l3-JMS-MOM/ignore/
-/l4-REST/ignore/
-.*
