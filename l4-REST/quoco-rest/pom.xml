@@ -1,0 +1,17 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>lab5</groupId>
+  <artifactId>quoco-rest</artifactId>
+  <packaging>pom</packaging>
+  <version>0.0.1</version>
+
+  <modules>
+    <module>auldfellas</module>
+    <module>broker</module>
+    <module>client</module>
+    <module>core</module>
+    <module>dodgydrivers</module>
+    <module>girlpower</module>
+  </modules>
+
+</project>
