@@ -4,11 +4,18 @@ package service.core;
  * Interface to define the state to be stored in ClientInfo objects
  * 
  * @author Rem
+ * @author edit by Hassan 
  *
  */
 public class ClientInfo {
-	public static final char MALE				= 'M';
-	public static final char FEMALE				= 'F';
+	private static final char MALE				= 'M';
+	private static final char FEMALE				= 'F';
+	private String name;
+	private char gender;
+	private int age;
+	private int points;
+	private int noClaims;
+	private String licenseNumber;
 	
 	public ClientInfo(String name, char sex, int age, int points, int noClaims, String licenseNumber) {
 		this.name = name;
@@ -19,17 +26,59 @@ public class ClientInfo {
 		this.licenseNumber = licenseNumber;
 	}
 	
-	public ClientInfo() {}
+	//default constructor
+	public ClientInfo() {};
 
-	/**
-	 * Public fields are used as modern best practice argues that use of set/get
-	 * methods is unnecessary as (1) set/get makes the field mutable anyway, and
-	 * (2) set/get introduces additional method calls, which reduces performance.
-	 */
-	public String name;
-	public char gender;
-	public int age;
-	public int points;
-	public int noClaims;
-	public String licenseNumber;
+	//getter and setter for name
+	public String getName(){
+            return name;
+	}
+	public void setName(String name){
+		this.name = name;
+	}
+
+	//getter and setter for gender
+	public char getGender(){
+		return gender;
+	}
+
+	public void setGender(char gender){
+		this.gender = gender;
+	}
+
+	//getter and setter for age
+	public int getAge(){
+		return age;
+	}
+	
+	public void setAge(int age){
+		this.age = age;
+	}
+
+	//getter and setter for points
+	public int getPoints(){
+		return points;
+	}
+
+	public void setPoints(int points){
+		this.points = points;
+	}
+
+	//getter and setter for noClaims
+	public int getClaims(){
+		return noClaims;
+	}
+
+	public void setClaims(int noClaims){
+		this.noClaims = noClaims;
+	}
+
+	//getter and setter for licenseNumber
+	public String getLicenseNumber(){
+		return licenseNumber;
+	}
+
+	public void getLicenseNumber(String licenseNumber){
+		this.licenseNumber = licenseNumber;
+	}
 }

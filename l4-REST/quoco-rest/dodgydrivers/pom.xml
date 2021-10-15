@@ -12,7 +12,7 @@
 	<groupId>lab5</groupId>
 	<artifactId>dodgydrivers</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hello-spring</name>
+	<name>dodgydrivers</name>
 	<description>implementation of quotation service project with Spring Boot</description>
 
 	<properties>
