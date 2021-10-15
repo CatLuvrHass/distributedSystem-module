@@ -3,6 +3,9 @@ Labs and implementations of distributed systems during my studies at UCD masters
 ### Our task: 
 To redsign a quotation company system name 'quoco' with different implementations.
 
-- Tutorial 1 - Studying Java RMI
+ - Tutorial 1 - Studying Java RMI.
 
-- Tutorial 2 - Impl of Web Services
+ - Tutorial 2 - Impl of Web Services.
+
+ - Tutorial 3 - Using JMS activemq. 
+ 
