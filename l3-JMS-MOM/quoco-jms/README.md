@@ -27,7 +27,7 @@ Same for the broker and client.
 
 Compile the service and then type:
 
-`docker build -t service{n}:latest .`
+`docker build -t {service_name}:latest .`
 
 ### Compiling the Client
 
