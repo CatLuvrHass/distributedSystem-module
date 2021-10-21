@@ -2,17 +2,20 @@
 
 This project implements a sample stock price quotation web service using jms-message oriented middle ware
 
-if you already know what you are doing, run `mvn clean install` in root file, then `mvn exec:java` the files in following order:
+If you already know what you are doing, run `mvn clean install` in root file, then `mvn exec:java` the files in following order:
 
  - Broker -> Services -> Client.
 
-# Compiling the Services
+Example : `mvn exec:java -pl broker/`
+
+
+### Compiling the Services
 
 Goto a service folder and build the code by typing:
 
 `mvn package` or `mvn clean install`
 
-# Running the Service
+### Running the Service
 
 Compile the service and then type:
 
@@ -20,49 +23,52 @@ Compile the service and then type:
 
 Same for the broker and client.
 
-# Dockerising the Service
+### Dockerising the Service
 
 Compile the service and then type:
 
 `docker build -t service{n}:latest .`
 
-# Compiling the Client
+### Compiling the Client
 
 Goto the client folder and build the code by typing:
 
 `mvn package`
 
-# Running the Client
+### Running the Client
 
 Compile the client and then type:
 
 `mvn exec:java`
 
-# Dockerising the Client
+### Dockerising the Client
 
 Compile the client and then type:
 
-`docker build -t client:latest .`
+`docker build -t client:latest .` this works but its not necesary when running the full system.
+for some reason it does not work together.
 
-# Compiling the Broker
+### Compiling the Broker
 
 Goto the broker folder and build the code by typing:
 
 `mvn package`
 
-# Running the Broker
+### Running the Broker
 
 Compile the broker and then type:
 
 `mvn exec:java`
 
-# Dockerising the Broker
+### Dockerising the Broker
 
 Compile the broker and then type:
 
 `docker build -t broker:latest .`
 
-# Running the example with `docker-compose`
+### Running the example with `docker-compose`
+
+To run the full system easy do the following
 
 Go to the root folder "quote-ws" which contains the docker-compose.yml file and type:
 
@@ -70,4 +76,5 @@ Go to the root folder "quote-ws" which contains the docker-compose.yml file and 
 
 `docker-compose up`
 
-this currently doesn't fully work as they all run but it hangs. if you run the files indvidually it should work.
+Open another terminal and run the client locally with `mvn clean compile java:exec -pl cleint/`
+
