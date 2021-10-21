@@ -30,6 +30,8 @@ public class Broker {
       static String host;
       static Map<Long, ClientInfo> cache = new HashMap<>();
       private static Connection connection;
+      static ArrayList<Quotation> quotations = new ArrayList<>();
+      static long id = -1;
 
 
       public static void main(String[] args){
@@ -68,12 +70,7 @@ public class Broker {
                   ReqThread requestThread = new ReqThread();
                   ResponseThread responseThread = new ResponseThread();
                   new Thread(requestThread).start();
-                  try {
-                        Thread.sleep(5000);
-                  } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                  }
+
                   new Thread(responseThread).start();
             
             } catch (JMSException e){
@@ -81,7 +78,7 @@ public class Broker {
             }
       }
       
-      //The thread Client -> Broker -> Services
+      //The thread Client -> Broker -> Services -> Client
       public static class ReqThread implements Runnable{
 
             /**
@@ -91,7 +88,14 @@ public class Broker {
              * the Broker on this thread will consume
              * Contents of the QuotationRequestMessage
              * and produce.send(message) to APPLICATIONS.
+             * 
+             * then 
+             * the broker will consume the Queue from the response Thread and create
+             * RESPONSE topic here for the client to consume and print results. using the cache id
+             * to link the ClientApplication
+             * 
              *  */ 
+
             @Override
             public void run() {
                   try {
@@ -101,6 +105,9 @@ public class Broker {
 
                         Topic topic = session.createTopic("APPLICATIONS");
                         MessageProducer producer = session.createProducer(topic);
+
+                        Topic responseTopic = session.createTopic("RESPONSE");
+                        MessageProducer responsProducer = session.createProducer(responseTopic);
                         
                         connection.start();
 
@@ -118,20 +125,36 @@ public class Broker {
                                     System.out.println("Unknown message type: " +
                                           message.getClass().getCanonicalName());
                               }
+
+                              try {
+                                    Thread.sleep(5000);
+                              } catch (InterruptedException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                              }
+
+                              System.out.println("this is the quotaions size" + quotations.size());
+                  
+                              Message application = session.createObjectMessage(new ClientApplicationMessage(id, cache.get(id), quotations));
+                        
+                              System.out.println("this is cached id" + id);
+                              System.out.println("THIS IS THE APP");
+                              responsProducer.send(application);
+
+                              quotations.clear();
                         }
+
                   } catch (JMSException e){
                         System.out.println(e);
                   }
             }
       }
 
-      //The thread Services -> Broker -> Client
+      //The thread Services -> Broker 
       public static class ResponseThread implements Runnable{
 
             /**In this thread we have the QUOTATIONS Queue where the 
              * different services produce their quotes.
-             * the broker will consume the Queue and create
-             * RESPONSE topic for the client to consume and print results.
              */
 
             @Override
@@ -143,54 +166,27 @@ public class Broker {
                     Queue queue = session.createQueue("QUOTATIONS");
                     MessageConsumer consumer = session.createConsumer(queue);
 
-                    Topic topic = session.createTopic("RESPONSE");
-                    MessageProducer producer = session.createProducer(topic);
-
                     connection.start();
                     
                     while (true) {
-                        ArrayList<Quotation> quotations = new ArrayList<>();
-                        //start at -1 since first response_id is 0
-                        // each iteration make id=response_id
-                        long id = -1;
-                        if(id==-1){
-                              Message message = consumer.receive();
-                              if (message instanceof ObjectMessage) {
-                              Object content = ((ObjectMessage) message).getObject();
-                                    if (content instanceof QuotationResponseMessage) {
-                                          QuotationResponseMessage response = (QuotationResponseMessage) content;
-                                          System.out.println("this is the response id" + response.id);
-      
-                                          message.acknowledge();
-                                          quotations.add(response.quotation);
-                                          id=response.id;
-                                    
-                                    }
-                              } else {
-                                    System.out.println("Unknown message type: " +
-                                                message.getClass().getCanonicalName());
-                                    }
+                        
+                        Message message = consumer.receive();
+                        if (message instanceof ObjectMessage) {
+                        Object content = ((ObjectMessage) message).getObject();
+                              if (content instanceof QuotationResponseMessage) {
+                                    QuotationResponseMessage response = (QuotationResponseMessage) content;
+                                    System.out.println("this is the response id" + response.id);
+
+                                    message.acknowledge();
+                                    quotations.add(response.quotation);
+                                    id=response.id;
+                              }
+                        } else {
+                              System.out.println("Unknown message type: " +
+                                          message.getClass().getCanonicalName());
                         }
-
-                  
-                  
-                        System.out.println("this is the quotaions size" + quotations.size());
-                  
-                        Message application = session.createObjectMessage(new ClientApplicationMessage(id, cache.get(id), quotations));
-                  
-                        System.out.println("this is cached id" + id);
-                 
-                 
-                        System.out.println("THIS IS THE APP");
-                 
-                        producer.send(application);
-         
                   }
-      
-                  
 
-
-           
             } catch (JMSException e){
            
                   System.out.println(e);
