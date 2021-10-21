@@ -32,10 +32,3 @@ services:
       - activemq
     environment:
       - HOST=activemq
-  client:
-    #    build: girlpower
-    build: client
-    depends_on:
-      - activemq
-    environment:
-      - HOST=activemq
