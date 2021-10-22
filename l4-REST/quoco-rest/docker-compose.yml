@@ -1,0 +1,31 @@
+version: '3'
+
+services: 
+  broker:
+    build: broker
+    depends_on:
+      - auldfellas
+      - girlpower
+      - dodgydrivers
+    network_mode: host
+    ports:
+      - 8888:8888
+
+  auldfellas:
+    #    build: auldfella
+    build: auldfellas
+    network_mode: host
+    ports:
+      - 8081:8081
+  dodgydrivers:
+    #    build: dodgydrivers
+    build: dodgydrivers
+    network_mode: host
+    ports:
+      - 8082:8082
+  girlpower:
+    #    build: girlpower
+    build: girlpower
+    network_mode: host
+    ports:
+      - 8083:8083

@@ -38,11 +38,8 @@ public class LocalBrokerService{
 
 	// we need to get the quotations
 	// map with client info an unique number
-
 	private int id = 0;
 	static Map<Integer, ClientApplication> applications = new HashMap<Integer, ClientApplication>();
-
-
 	static String[] uris = {"http://localhost:8081/quotations","http://localhost:8082/quotations","http://localhost:8083/quotations"};
 
 	@RequestMapping(value="/applications",method=RequestMethod.POST)
