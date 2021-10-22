@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author edited by Hassan
  *
  */
+
 public class Quotation implements Serializable{
 
 	private String company;

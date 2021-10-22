@@ -8,14 +8,9 @@ package service.core;
  *
  */
 public class ClientInfo {
-	private static final char MALE				= 'M';
-	private static final char FEMALE				= 'F';
-	private String name;
-	private char gender;
-	private int age;
-	private int points;
-	private int noClaims;
-	private String licenseNumber;
+
+	public static final char MALE				= 'M';
+	public static final char FEMALE				= 'F';
 	
 	public ClientInfo(String name, char sex, int age, int points, int noClaims, String licenseNumber) {
 		this.name = name;
@@ -29,6 +24,14 @@ public class ClientInfo {
 	//default constructor
 	public ClientInfo() {};
 
+	private String name;
+	private char gender;
+	private int age;
+	private int points;
+	private int noClaims;
+	private String licenseNumber;
+	
+	
 	//getter and setter for name
 	public String getName(){
             return name;
