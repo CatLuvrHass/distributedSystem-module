@@ -27,7 +27,7 @@ Same for the broker and client.
 
 Compile the service and then type:
 
-`docker build -t service{n}:latest .`
+`docker build -t {service_name}:latest .`
 
 ### Compiling the Client
 
@@ -76,5 +76,5 @@ Go to the root folder "quote-ws" which contains the docker-compose.yml file and 
 
 `docker-compose up`
 
-Open another terminal and run the client locally with `mvn clean compile java:exec -pl cleint/`
+Open another terminal and run the client locally with `mvn clean compile java:exec -pl client/`
 
