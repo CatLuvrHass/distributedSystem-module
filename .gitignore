@@ -4,4 +4,5 @@ sockets/
 /l2-Jax-WS/ignore/
 /l3-JMS-MOM/ignore/
 /l4-REST/ignore/
+/l5-AKKA/ignore/
 .*

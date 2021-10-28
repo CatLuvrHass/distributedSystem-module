@@ -90,6 +90,6 @@ public class Broker{
 	@WebService
 	public interface QuoterService {
 		@WebMethod Quotation generateQuotation(ClientInfo info);
-	    }
+	}
 	    
 }
